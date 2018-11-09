@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Notification</string>
+    <string name="simple_1">Simple 1</string>
+    <string name="simple_2">Simple 2</string>
+    <string name="two_option">Two Option</string>
+    <string name="big_text">Big Text</string>
+    <string name="big_picture">Big Picture</string>
+    <string name="inbox_style">Inbox Style</string>
+    <string name="big_pic_with_two_option">Big Pic With Two Option</string>
+    <string name="large_icon">Large Icon</string>
+    <string name="progress">Progress</string>
+    <string name="custom">Custom</string>
+    <string name="you_are_rain">بارن تویی</string>
+    <string name="pause">pause</string>
+    <string name="play">play</string>
+</resources>

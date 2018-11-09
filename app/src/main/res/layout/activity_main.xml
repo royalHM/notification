@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layoutDirection="ltr"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:background="#13B0A5"
+        android:gravity="center"
+        android:id="@+id/textView6"
+        android:layout_height="50dp"
+        android:layout_width="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#fff"
+        android:textSize="24sp" />
+
+    <include layout="@layout/activity_main_items" />
+</LinearLayout>
