@@ -1,6 +1,7 @@
 package com.example.hamed.notification_developers.Activities;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -8,6 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.os.PowerManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +23,12 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.hamed.notification_developers.R;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,7 +107,15 @@ public class MainActivity extends AppCompatActivity {
         Notification notification = builder.build();
         NotificationManager manager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
 
+
+//        String CHANNEL_ID = "simpleNoti"; // The id of the channel.
+//        CharSequence name = "notif_ping"; // The user-visible name of the channel.
+//        int importance = NotificationManager.IMPORTANCE_HIGH;
+//        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+
         assert manager != null;
+       // manager.createNotificationChannel(mChannel);
         manager.notify(NOTIFICATION_ID_1, notification);
     }
 
@@ -331,7 +351,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void customNoti() {
+    private void customNoti() {
+        //Notification.Builder builder = new Notification.Builder(MainActivity.this);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "customNoti");
 
         builder.setContentTitle("Custom Title");
@@ -376,6 +397,149 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "pause music", Toast.LENGTH_LONG).show();
         }
     }
+
+
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    private void after_O_Notification() {
+//        int notifyID = 1;
+//        String CHANNEL_ID = "my_channel_01"; // The id of the channel.
+//        CharSequence name = getString(R.string.imectNotification); // The user-visible name of the channel.
+//        int importance = NotificationManager.IMPORTANCE_HIGH;
+//        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+//
+////        URL url = null;
+////        try {
+////            url = new URL("http://185.94.99.41:8085/658CD1BA59AD0BA51B6A7CFF67AF211AF09E95B6/FHPG23AR67MNB/RestaurantModel/avatar?id=235&pic=235n52018nFJN10Nf1091497515n59D8Nf29");
+////        } catch (MalformedURLException e) {
+////            e.printStackTrace();
+////        }
+////        Notification.BigPictureStyle bpStyle = new Notification.BigPictureStyle();
+////        try {
+////            bpStyle.bigPicture(BitmapFactory.decodeStream((InputStream) url.getContent()));
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+//        Notification.Builder notification = new Notification.Builder(context)
+//                .setContentTitle(notificationModel.getTitle())
+//                .setContentText(notificationModel.getShortText())
+//                .setAutoCancel(true)
+//                .setLights(Color.GREEN, 3000, 3000)
+//                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+//                .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notify))
+//                .setSmallIcon(PushServiceSetting.getNotificationResource(this) == 0 ? R.mipmap.ic_launcher : PushServiceSetting.getNotificationResource(this))
+//                .setChannelId(CHANNEL_ID);
+//
+//        // notification.setStyle(bpStyle);
+//
+//
+//        long time = Calendar.getInstance().getTimeInMillis();
+//
+//        time = (long) (time / 10000 * 3.6);
+//        Intent intent = getNotificationAction(notificationModel);
+//        if (intent != null) {
+//
+//            intent.putExtra("IsFromNotification", true);
+//            try {
+//
+//                PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) time, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                if (pendingIntent != null)
+//                    notification.setContentIntent(pendingIntent);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//
+//        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        if (mNotificationManager != null) {
+//            mNotificationManager.createNotificationChannel(mChannel);
+//            mNotificationManager.notify(notifyID, notification.build());
+//            seenThisNotification(notificationModel);
+//        }
+//    }
+
+//    private void pre_O_Notification() {
+//
+//        URL url = null;
+//        try {
+//            url = new URL("http://hpec.ir/test-images/1_1.jpg");
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//        Notification.BigPictureStyle bpStyle = new Notification.BigPictureStyle();
+//        try {
+//            bpStyle.bigPicture(BitmapFactory.decodeStream((InputStream) url.getContent()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Notification.Builder mBuilder = new Notification.Builder(context)
+//                        .setAutoCancel(true)
+//                        .setLights(Color.GREEN, 3000, 3000)
+//                        .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+//                        .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notify))
+//                        //  .setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION))
+//                        .setSmallIcon(PushServiceSetting.getNotificationResource(this) == 0 ? R.mipmap.ic_launcher : PushServiceSetting.getNotificationResource(this))
+//                        .setContentText(notificationModel.getShortText())
+//                        .setContentTitle(notificationModel.getTitle());
+//
+//        // mBuilder.setStyle(bpStyle);
+//
+//        long time = Calendar.getInstance().getTimeInMillis();
+//
+//        time = (long) (time / 10000 * 3.6);
+//        Intent intent = getNotificationAction(notificationModel);
+//        if (intent != null) {
+//
+//            intent.putExtra("IsFromNotification", true);
+//            try {
+//
+//                PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) time, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                if (pendingIntent != null)
+//                    mBuilder.setContentIntent(pendingIntent);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//
+//        // Gets an instance of the NotificationManager service
+//        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        if (notificationModel.getText() != null && !notificationModel.getText().equals("")) {
+//
+//            //to post your notification to the notification bar
+////            Notification.BigTextStyle bst = new Notification.BigTextStyle(mBuilder);
+////            bst.bigText(notificationModel.getText());
+//            if (notificationManager != null)
+//                notificationManager.notify(notificationModel.getID(), mBuilder.build());
+//
+//        } else {
+//
+//            if (notificationManager != null)
+//                notificationManager.notify(notificationModel.getID(), mBuilder.build());
+//
+//        }
+//
+//        try {
+//
+//            // چک میکند اگر صفحه کاربر قفل است انرا روشن کرده و ناتیفیکشن را ارسال میکند
+//            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+//            boolean isScreenOn = pm.isScreenOn();
+//            if (!isScreenOn) {
+//                PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "MyLock");
+//                wl.acquire(7000);
+//                PowerManager.WakeLock wl_cpu = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyCpuLock");
+//                wl_cpu.acquire(7000);
+//                //برای ۷ ثانیه صفحه و سی پی یو روشن میماند
+//            }
+//
+//
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
+//
+//        seenThisNotification(notificationModel);
+//    }
 
 
 }
